@@ -1,4 +1,5 @@
 from behave import given, when, then  # type: ignore
+
 from .. import testing
 
 
@@ -101,7 +102,9 @@ def state_is_active(context, name):
     # Check that state exists
     context.interpreter.statechart.state_for(name)
 
-    assert name in context.interpreter.configuration, 'State {} is not active'.format(name)
+    active = ', '.join(context.interpreter.configuration)
+
+    assert name in context.interpreter.configuration, 'State {} is not active.  Active states are {}'.format(name, active)
 
 
 @then('state {name} is not active')
